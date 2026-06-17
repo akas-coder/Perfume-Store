@@ -8,15 +8,23 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const checkAuth = useCallback(async () => {
+    const token = localStorage.getItem('perfume_token');
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
     try {
       const res = await authAPI.me();
       if (res.data.success && res.data.data) {
         setUser(res.data.data);
       } else {
         setUser(null);
+        localStorage.removeItem('perfume_token');
       }
     } catch {
       setUser(null);
+      localStorage.removeItem('perfume_token');
     } finally {
       setLoading(false);
     }
@@ -27,20 +35,32 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     const res = await authAPI.login(credentials);
     if (res.data.success) {
-      setUser(res.data.data);
-      return res.data.data;
+      const { token, user: userData } = res.data.data;
+      localStorage.setItem('perfume_token', token);
+      setUser(userData);
+      return userData;
     }
     throw new Error(res.data.message);
   };
 
   const register = async (data) => {
     const res = await authAPI.register(data);
-    if (res.data.success) return res.data.data;
+    if (res.data.success) {
+      const { token, user: userData } = res.data.data;
+      localStorage.setItem('perfume_token', token);
+      setUser(userData);
+      return userData;
+    }
     throw new Error(res.data.message);
   };
 
   const logout = async () => {
-    await authAPI.logout();
+    try {
+      await authAPI.logout();
+    } catch {
+      // ignore — token may already be invalid
+    }
+    localStorage.removeItem('perfume_token');
     setUser(null);
   };
 

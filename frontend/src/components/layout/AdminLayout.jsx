@@ -26,8 +26,27 @@ export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Check admin auth on mount
+  useEffect(() => {
+    const token = localStorage.getItem('perfume_admin_token');
+    if (!token) {
+      navigate('/admin/login');
+      return;
+    }
+    adminAuthAPI.me().then(res => {
+      if (!res.data.success) {
+        localStorage.removeItem('perfume_admin_token');
+        navigate('/admin/login');
+      }
+    }).catch(() => {
+      localStorage.removeItem('perfume_admin_token');
+      navigate('/admin/login');
+    });
+  }, [navigate]);
+
   const handleLogout = async () => {
-    await adminAuthAPI.logout();
+    try { await adminAuthAPI.logout(); } catch { /* ignore */ }
+    localStorage.removeItem('perfume_admin_token');
     toast.success('Admin logged out');
     navigate('/admin/login');
   };

@@ -2,7 +2,7 @@ package com.perfume.controller.admin;
 
 import com.perfume.dto.request.LoginRequest;
 import com.perfume.dto.response.ApiResponse;
-import com.perfume.model.Admin;
+import com.perfume.dto.response.AuthResponse;
 import com.perfume.service.AuthService;
 import com.perfume.util.SessionUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,20 +20,18 @@ public class AdminAuthController {
     @Autowired private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<?>> login(
-            @Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         try {
-            Admin admin = authService.adminLogin(request, httpRequest);
-            return ResponseEntity.ok(ApiResponse.success("Admin login successful",
-                    Map.of("id", admin.getId(), "name", admin.getName(), "email", admin.getEmail())));
+            AuthResponse authResponse = authService.adminLogin(request);
+            return ResponseEntity.ok(ApiResponse.success("Admin login successful", authResponse));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<?>> logout(HttpServletRequest request) {
-        authService.logout(request);
+    public ResponseEntity<ApiResponse<?>> logout() {
+        authService.logout();
         return ResponseEntity.ok(ApiResponse.success("Logged out", null));
     }
 

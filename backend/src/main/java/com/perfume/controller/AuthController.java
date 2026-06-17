@@ -3,6 +3,7 @@ package com.perfume.controller;
 import com.perfume.dto.request.LoginRequest;
 import com.perfume.dto.request.RegisterRequest;
 import com.perfume.dto.response.ApiResponse;
+import com.perfume.dto.response.AuthResponse;
 import com.perfume.dto.response.UserResponse;
 import com.perfume.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,29 +19,28 @@ public class AuthController {
     @Autowired private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserResponse>> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
         try {
-            UserResponse user = authService.register(request);
-            return ResponseEntity.ok(ApiResponse.success("Registration successful", user));
+            AuthResponse authResponse = authService.register(request);
+            return ResponseEntity.ok(ApiResponse.success("Registration successful", authResponse));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<UserResponse>> login(
-            @Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         try {
-            UserResponse user = authService.login(request, httpRequest);
-            return ResponseEntity.ok(ApiResponse.success("Login successful", user));
+            AuthResponse authResponse = authService.login(request);
+            return ResponseEntity.ok(ApiResponse.success("Login successful", authResponse));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(HttpServletRequest request) {
-        authService.logout(request);
+    public ResponseEntity<ApiResponse<Void>> logout() {
+        authService.logout();
         return ResponseEntity.ok(ApiResponse.success("Logged out successfully", null));
     }
 

@@ -26,7 +26,6 @@ com\perfume\model\Wishlist$WishlistBuilder.class
 com\perfume\repository\CartRepository.class
 com\perfume\service\OrderService.class
 com\perfume\controller\CategoryController.class
-com\perfume\config\SessionInterceptor.class
 com\perfume\model\Coupon.class
 com\perfume\dto\request\RegisterRequest.class
 com\perfume\model\Notification$NotificationBuilder.class
@@ -36,11 +35,13 @@ com\perfume\service\AuthService.class
 com\perfume\model\Category$CategoryBuilder.class
 com\perfume\model\OrderItem.class
 com\perfume\util\SessionUtil.class
+com\perfume\config\SecurityConfig.class
 com\perfume\model\CartItem$GiftPackaging.class
 com\perfume\dto\response\UserResponse$UserResponseBuilder.class
 com\perfume\model\Review.class
 com\perfume\config\DataSeeder.class
 com\perfume\dto\response\DashboardResponse.class
+com\perfume\util\JwtUtil.class
 com\perfume\dto\response\OrderResponse$AddressResponse$AddressResponseBuilder.class
 com\perfume\model\Admin.class
 com\perfume\util\OrderNumberGenerator.class
@@ -50,6 +51,8 @@ com\perfume\controller\UserController.class
 com\perfume\config\CloudinaryConfig.class
 com\perfume\config\WebConfig.class
 com\perfume\dto\request\CategoryRequest.class
+com\perfume\config\JwtAuthFilter.class
+com\perfume\dto\response\AuthResponse$AuthResponseBuilder.class
 com\perfume\repository\NotificationRepository.class
 com\perfume\model\Order.class
 com\perfume\repository\UserRepository.class
@@ -64,6 +67,7 @@ com\perfume\dto\response\OrderResponse$OrderItemResponse$OrderItemResponseBuilde
 com\perfume\controller\ReviewController.class
 com\perfume\controller\admin\AdminCustomerController.class
 com\perfume\repository\OrderItemRepository.class
+com\perfume\dto\response\AuthResponse.class
 com\perfume\repository\CartItemRepository.class
 com\perfume\service\ReviewService.class
 com\perfume\service\CouponService.class
@@ -110,7 +114,6 @@ com\perfume\dto\response\DashboardResponse$DashboardResponseBuilder.class
 com\perfume\repository\CouponRepository.class
 com\perfume\dto\request\AddressRequest.class
 com\perfume\service\ProductService.class
-com\perfume\config\CorsConfig.class
 com\perfume\model\Banner$BannerBuilder.class
 com\perfume\controller\admin\AdminOrderController.class
 com\perfume\repository\WishlistRepository.class

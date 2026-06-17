@@ -8,6 +8,7 @@ C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\re
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\response\ProductResponse.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\util\OrderNumberGenerator.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\ProductService.java
+C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\response\AuthResponse.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\repository\AdminRepository.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\UserService.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\controller\OrderController.java
@@ -22,6 +23,7 @@ C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\contro
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\repository\WishlistRepository.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\WebConfig.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\request\OrderRequest.java
+C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\SecurityConfig.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\controller\WishlistController.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\repository\ProductImageRepository.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\controller\admin\AdminAuthController.java
@@ -51,7 +53,6 @@ C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\servic
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\response\OrderResponse.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\controller\admin\AdminDashboardController.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\model\Wishlist.java
-C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\CorsConfig.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\repository\AddressRepository.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\WishlistService.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\request\LoginRequest.java
@@ -63,6 +64,7 @@ C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\contro
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\CartService.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\DataSeeder.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\response\ApiResponse.java
+C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\util\JwtUtil.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\request\RegisterRequest.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\DashboardService.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\model\Coupon.java
@@ -71,8 +73,8 @@ C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\contro
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\request\ProductRequest.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\CloudinaryService.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\dto\response\UserResponse.java
+C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\JwtAuthFilter.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\model\Banner.java
-C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\config\SessionInterceptor.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\model\ProductImage.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\repository\ReviewRepository.java
 C:\Users\akash\OneDrive\Desktop\PERfume\backend\src\main\java\com\perfume\service\CategoryService.java

@@ -2,23 +2,38 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: '/api',
-  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Request interceptor
-api.interceptors.request.use(config => config, Promise.reject);
+// Request interceptor — attach JWT Bearer token
+api.interceptors.request.use(config => {
+  const url = config.url || '';
+  // Use admin token for admin endpoints
+  if (url.startsWith('/admin')) {
+    const adminToken = localStorage.getItem('perfume_admin_token');
+    if (adminToken) {
+      config.headers.Authorization = `Bearer ${adminToken}`;
+    }
+  } else {
+    const token = localStorage.getItem('perfume_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+}, Promise.reject);
 
-// Response interceptor - handle 401
+// Response interceptor — handle 401
 api.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401) {
       const path = window.location.pathname;
       if (path.startsWith('/admin') && !path.includes('/admin/login')) {
+        localStorage.removeItem('perfume_admin_token');
         window.location.href = '/admin/login';
       } else if (!path.includes('/login') && !path.includes('/register')) {
-        // Soft fail - let component handle
+        // Soft fail — let component handle
       }
     }
     return Promise.reject(error);

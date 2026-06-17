@@ -16,7 +16,10 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await adminAuthAPI.login({ email, password });
+      const res = await adminAuthAPI.login({ email, password });
+      if (res.data.success && res.data.data?.token) {
+        localStorage.setItem('perfume_admin_token', res.data.data.token);
+      }
       toast.success('Welcome, Admin!');
       navigate('/admin/dashboard');
     } catch (err) {
