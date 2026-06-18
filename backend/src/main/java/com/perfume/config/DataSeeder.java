@@ -25,29 +25,29 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        //seedAdmin();
+        seedAdmin();
         seedCategories();
         seedProducts();
         seedCoupons();
         seedBanners();
     }
 
-    // private void seedAdmin() {
-    //     Admin admin = adminRepository.findByEmail("admin@perfume.com").orElse(null);
-    //     if (admin == null) {
-    //         admin = Admin.builder()
-    //                 .name("Super Admin")
-    //                 .email("admin@perfume.com")
-    //                 .password(encoder.encode("Admin@123"))
-    //                 .build();
-    //         adminRepository.save(admin);
-    //         System.out.println("✅ Admin seeded: admin@perfume.com / Admin@123");
-    //     } else {
-    //         admin.setPassword(encoder.encode("Admin@123"));
-    //         adminRepository.save(admin);
-    //         System.out.println("✅ Admin password reset to: Admin@123");
-    //     }
-    // }
+    private void seedAdmin() {
+        Admin admin = adminRepository.findByEmail("admin@perfume.com").orElse(null);
+        if (admin == null) {
+            admin = Admin.builder()
+                    .name("Super Admin")
+                    .email("admin@perfume.com")
+                    .password(encoder.encode("Admin@123"))
+                    .build();
+            adminRepository.save(admin);
+            System.out.println("✅ Admin seeded: admin@perfume.com / Admin@123");
+        } else {
+            admin.setPassword(encoder.encode("Admin@123"));
+            adminRepository.save(admin);
+            System.out.println("✅ Admin password reset to: Admin@123");
+        }
+    }
 
     private void seedCategories() {
         if (categoryRepository.count() == 0) {
