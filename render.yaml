@@ -1,0 +1,48 @@
+services:
+  # ─────────────────────────────────────────
+  # Backend — Spring Boot Web Service
+  # ─────────────────────────────────────────
+  - type: web
+    name: perfume-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/perfume-backend-1.0.0.jar
+    plan: free
+    healthCheckPath: /api/products
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: APP_ALLOWED_ORIGIN
+        sync: false
+      - key: APP_FRONTEND_URL
+        sync: false
+
+  # ─────────────────────────────────────────
+  # Frontend — React / Vite Static Site
+  # ─────────────────────────────────────────
+  - type: web
+    name: perfume-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
