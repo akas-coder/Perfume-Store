@@ -1,7 +1,9 @@
 package com.perfume.controller;
 
+import com.perfume.dto.request.ForgotPasswordRequest;
 import com.perfume.dto.request.LoginRequest;
 import com.perfume.dto.request.RegisterRequest;
+import com.perfume.dto.request.ResetPasswordRequest;
 import com.perfume.dto.response.ApiResponse;
 import com.perfume.dto.response.AuthResponse;
 import com.perfume.dto.response.UserResponse;
@@ -52,5 +54,28 @@ public class AuthController {
                     .success(false).message("Not authenticated").build());
         }
         return ResponseEntity.ok(ApiResponse.success(user));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        try {
+            String resetUrl = authService.forgotPassword(request.getEmail());
+            return ResponseEntity.ok(ApiResponse.success(
+                    "Password reset link generated. Copy the link below to reset your password.",
+                    resetUrl
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse<Void>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        try {
+            authService.resetPassword(request.getToken(), request.getNewPassword());
+            return ResponseEntity.ok(ApiResponse.success("Password reset successfully! You can now log in.", null));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
     }
 }

@@ -1,0 +1,66 @@
+# ========================
+# Java / Maven (Backend)
+# ========================
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# Maven wrapper
+!.mvn/wrapper/maven-wrapper.jar
+
+# ========================
+# Spring Boot
+# ========================
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-prod.properties
+
+# ========================
+# Uploaded files (local storage)
+# ========================
+backend/uploads/
+
+# ========================
+# Node.js / React (Frontend)
+# ========================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========================
+# IDE & Editor
+# ========================
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ========================
+# OS
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/

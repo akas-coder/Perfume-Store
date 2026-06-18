@@ -20,6 +20,8 @@ import OrderDetailPage from './pages/user/OrderDetailPage';
 import ProfilePage from './pages/user/ProfilePage';
 import LoginPage from './pages/user/LoginPage';
 import RegisterPage from './pages/user/RegisterPage';
+import ForgotPasswordPage from './pages/user/ForgotPasswordPage';
+import ResetPasswordPage from './pages/user/ResetPasswordPage';
 import QuizPage from './pages/user/QuizPage';
 import SearchPage from './pages/user/SearchPage';
 
@@ -58,6 +60,8 @@ function AppRoutes() {
         <Route path="quiz" element={<QuizPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
         <Route path="wishlist" element={<ProtectedRoute><WishlistPage /></ProtectedRoute>} />
         <Route path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />

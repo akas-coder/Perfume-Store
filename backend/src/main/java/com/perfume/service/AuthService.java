@@ -6,19 +6,24 @@ import com.perfume.dto.response.AuthResponse;
 import com.perfume.dto.response.UserResponse;
 import com.perfume.model.Admin;
 import com.perfume.model.Cart;
+import com.perfume.model.PasswordResetToken;
 import com.perfume.model.User;
 import com.perfume.repository.AdminRepository;
 import com.perfume.repository.CartRepository;
+import com.perfume.repository.PasswordResetTokenRepository;
 import com.perfume.repository.UserRepository;
 import com.perfume.util.JwtUtil;
 import com.perfume.util.SessionUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -26,8 +31,15 @@ public class AuthService {
     @Autowired private UserRepository userRepository;
     @Autowired private AdminRepository adminRepository;
     @Autowired private CartRepository cartRepository;
+    @Autowired private PasswordResetTokenRepository resetTokenRepository;
     @Autowired private BCryptPasswordEncoder passwordEncoder;
     @Autowired private JwtUtil jwtUtil;
+
+    @Value("${app.reset-token.expiration-minutes:30}")
+    private int resetTokenExpirationMinutes;
+
+    @Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -91,6 +103,53 @@ public class AuthService {
     public void logout() {
         // JWT is stateless — client removes the token.
         // This method exists for API compatibility.
+    }
+
+    @Transactional
+    public String forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("No account found with that email address"));
+
+        if (user.getIsBlocked()) {
+            throw new RuntimeException("Your account has been blocked. Please contact support.");
+        }
+
+        // Invalidate any existing tokens for this user
+        resetTokenRepository.deleteByUser_Id(user.getId());
+
+        // Generate a new secure token
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = PasswordResetToken.builder()
+                .token(token)
+                .user(user)
+                .expiresAt(LocalDateTime.now().plusMinutes(resetTokenExpirationMinutes))
+                .build();
+        resetTokenRepository.save(resetToken);
+
+        // Return the reset URL (in production this would be emailed)
+        return frontendUrl + "/reset-password?token=" + token;
+    }
+
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = resetTokenRepository.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Invalid or expired reset token"));
+
+        if (resetToken.getUsed()) {
+            throw new RuntimeException("This reset link has already been used");
+        }
+
+        if (resetToken.isExpired()) {
+            resetTokenRepository.delete(resetToken);
+            throw new RuntimeException("Reset token has expired. Please request a new one");
+        }
+
+        User user = resetToken.getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        resetToken.setUsed(true);
+        resetTokenRepository.save(resetToken);
     }
 
     public UserResponse getCurrentUser(HttpServletRequest request) {

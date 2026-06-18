@@ -68,8 +68,14 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium uppercase tracking-wider mb-2"
-                     style={{ color: 'var(--color-muted)' }}>Password</label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-medium uppercase tracking-wider"
+                       style={{ color: 'var(--color-muted)' }}>Password</label>
+                <Link to="/forgot-password" className="text-xs font-medium hover:underline transition-opacity hover:opacity-80"
+                      style={{ color: 'var(--color-gold)' }}>
+                  Forgot Password?
+                </Link>
+              </div>
               <div className="relative">
                 <FiLock className="absolute left-4 top-1/2 -translate-y-1/2" size={16}
                         style={{ color: 'var(--color-muted)' }} />
