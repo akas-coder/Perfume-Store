@@ -16,12 +16,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+
+    @Value("${app.allowed-origin:}")
+    private String allowedOrigin;
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
@@ -105,12 +109,20 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of(
+
+        List<String> origins = new java.util.ArrayList<>(List.of(
             "http://localhost:5173",
             "http://localhost:5174",
             "http://localhost:3000",
-            "https://*.vercel.app"
+            "https://*.vercel.app",
+            "https://*.onrender.com"
         ));
+        // Append runtime-configured origin (e.g., exact Render frontend URL)
+        if (allowedOrigin != null && !allowedOrigin.isBlank()) {
+            origins.add(allowedOrigin);
+        }
+
+        config.setAllowedOriginPatterns(origins);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
