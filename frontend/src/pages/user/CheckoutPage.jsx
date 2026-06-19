@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 const PAYMENT_METHODS = [
   { value: 'COD', label: 'Cash on Delivery', icon: '💵', desc: 'Pay when you receive' },
-  { value: 'UPI', label: 'UPI / GPay / PhonePe', icon: '📱', desc: 'Pay securely using any UPI app' },
+  { value: 'UPI', label: 'UPI / GPay / PhonePe', icon: '📱', desc: 'Temporarily disabled', disabled: true },
   { value: 'CARD', label: 'Credit / Debit Card', icon: '💳', desc: 'Coming soon', disabled: true },
 ];
 
