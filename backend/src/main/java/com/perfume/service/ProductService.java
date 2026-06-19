@@ -21,7 +21,11 @@ public class ProductService {
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private InventoryRepository inventoryRepository;
     @Autowired private ProductImageRepository productImageRepository;
+    @Autowired private CartItemRepository cartItemRepository;
+    @Autowired private WishlistRepository wishlistRepository;
+    @Autowired private ReviewRepository reviewRepository;
     @Autowired private CloudinaryService cloudinaryService;
+
 
     public Page<ProductResponse> getAllProducts(int page, int size, String sortBy, String sortDir,
                                                 Long categoryId, String gender, String fragranceFamily,
@@ -216,7 +220,19 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Delete cloudinary images
+        // 1. Remove from all carts
+        cartItemRepository.deleteByProductId(id);
+
+        // 2. Remove from all wishlists
+        wishlistRepository.deleteByProductId(id);
+
+        // 3. Remove all reviews
+        reviewRepository.deleteByProductId(id);
+
+        // 4. Delete inventory
+        inventoryRepository.findByProductId(id).ifPresent(inventoryRepository::delete);
+
+        // 5. Delete images from Cloudinary and DB
         product.getImages().forEach(img -> {
             try {
                 cloudinaryService.deleteImage(img.getPublicId());
@@ -224,7 +240,9 @@ public class ProductService {
                 // Log but continue
             }
         });
+        productImageRepository.deleteAll(product.getImages());
 
+        // 6. Finally delete the product
         productRepository.delete(product);
     }
 
