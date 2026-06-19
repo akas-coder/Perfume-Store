@@ -20,7 +20,7 @@ export default function AdminBanners() {
     e.preventDefault(); setSaving(true);
     try {
       const formData = new FormData();
-      formData.append('banner', JSON.stringify(form));
+      formData.append('banner', new Blob([JSON.stringify(form)], { type: 'application/json' }));
       if (image) formData.append('image', image);
       await adminAPI.createBanner(formData);
       toast.success('Banner created!'); setShowModal(false); fetch();

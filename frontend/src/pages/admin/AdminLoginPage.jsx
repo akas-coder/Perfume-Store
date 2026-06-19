@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
               <div className="relative">
                 <FiMail className="absolute left-4 top-1/2 -translate-y-1/2" size={16} style={{ color: 'var(--color-muted)' }} />
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                  placeholder="admin@perfume.com" className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm input-dark"
+                  placeholder="Enter your email" className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm input-dark"
                   id="admin-email" />
               </div>
             </div>
@@ -71,9 +71,7 @@ export default function AdminLoginPage() {
               {loading ? <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" /> Signing in...</> : 'Sign In to Admin'}
             </button>
           </form>
-          <p className="text-center text-xs mt-6" style={{ color: 'var(--color-muted)' }}>
-            Default: admin@perfume.com / Admin@123
-          </p>
+
         </div>
       </motion.div>
     </div>

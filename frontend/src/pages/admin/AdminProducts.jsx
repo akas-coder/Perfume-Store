@@ -80,8 +80,9 @@ export default function AdminProducts() {
         lowStockThreshold: parseInt(form.lowStockThreshold),
       });
       const formData = new FormData();
-      formData.append('product', productJson);
+      formData.append('product', new Blob([productJson], { type: 'application/json' }));
       images.forEach(img => formData.append('images', img));
+
 
       if (editingProduct) {
         await adminAPI.updateProduct(editingProduct.id, formData);
