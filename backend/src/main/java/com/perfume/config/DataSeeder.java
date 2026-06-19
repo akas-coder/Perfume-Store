@@ -17,6 +17,7 @@ public class DataSeeder implements CommandLineRunner {
     @Autowired private AdminRepository adminRepository;
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private CouponRepository couponRepository;
+    @Autowired private BannerRepository bannerRepository;
 
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -26,6 +27,7 @@ public class DataSeeder implements CommandLineRunner {
         seedAdmin();
         seedCategories();
         seedCoupons();
+        seedBanners();
     }
 
     private void seedAdmin() {
@@ -88,6 +90,58 @@ public class DataSeeder implements CommandLineRunner {
             couponRepository.save(c3);
 
             System.out.println("✅ Coupons seeded: WELCOME10, FLAT500, FIRST20");
+        }
+    }
+
+    private void seedBanners() {
+        if (bannerRepository.count() < 4) {
+            bannerRepository.deleteAll(); // Clean any incomplete/dummy banners
+
+            Banner b1 = Banner.builder()
+                    .title("One Brand. Four Individuals. Endless Impressions.")
+                    .subtitle("Crafted to match your vibe. Made to leave your mark.")
+                    .imageUrl("/banners/banner4.jpg")
+                    .buttonText("Explore Collection")
+                    .linkUrl("/products")
+                    .sortOrder(1)
+                    .isActive(true)
+                    .build();
+            bannerRepository.save(b1);
+
+            Banner b2 = Banner.builder()
+                    .title("Define. Impress. Be Liorix.")
+                    .subtitle("Premium fragrances crafted to reflect your power, passion, and presence.")
+                    .imageUrl("/banners/banner3.png")
+                    .buttonText("Shop Now")
+                    .linkUrl("/products")
+                    .sortOrder(2)
+                    .isActive(true)
+                    .build();
+            bannerRepository.save(b2);
+
+            Banner b3 = Banner.builder()
+                    .title("Crafted to be Remembered")
+                    .subtitle("Experience the essence of elegance and luxury.")
+                    .imageUrl("/banners/banner2.png")
+                    .buttonText("Discover Scents")
+                    .linkUrl("/products")
+                    .sortOrder(3)
+                    .isActive(true)
+                    .build();
+            bannerRepository.save(b3);
+
+            Banner b4 = Banner.builder()
+                    .title("Exclusive Liorix Combo")
+                    .subtitle("The ultimate collection of our signature scents.")
+                    .imageUrl("/banners/banner1.jpg")
+                    .buttonText("View Combos")
+                    .linkUrl("/products")
+                    .sortOrder(4)
+                    .isActive(true)
+                    .build();
+            bannerRepository.save(b4);
+
+            System.out.println("✅ 4 Liorix Banners seeded");
         }
     }
 
