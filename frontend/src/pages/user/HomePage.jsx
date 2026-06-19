@@ -297,7 +297,7 @@ export default function HomePage() {
                 Where Luxury Meets<br /><span className="text-gold-gradient">Artistry</span>
               </h2>
               <p className="text-base leading-relaxed mb-4" style={{ color: 'var(--color-muted)' }}>
-                PERfume was born from a passion for the world's most exquisite fragrances. 
+                Liorix was born from a passion for the world's most exquisite fragrances. 
                 We travel the globe to source the finest ingredients, partnering with legendary 
                 perfume houses and emerging artisans alike.
               </p>
