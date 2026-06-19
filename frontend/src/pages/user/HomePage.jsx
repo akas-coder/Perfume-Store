@@ -99,12 +99,24 @@ export default function HomePage() {
           loop
           className="h-[60vh] md:h-[80vh]"
         >
-          {banners.map((banner) => (
-            <SwiperSlide key={banner.id}>
-              <div className="relative h-full flex items-center justify-center">
-                <img src={banner.imageUrl} alt={banner.title}
-                     className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)' }} />
+          {banners.map((banner, index) => {
+            const fallbackBanners = ['/banners/banner3.png', '/banners/banner2.png', '/banners/banner1.jpg'];
+            const fallbackImg = fallbackBanners[index % fallbackBanners.length];
+            const hasValidImage = banner.imageUrl && (banner.imageUrl.startsWith('http') || banner.imageUrl.startsWith('/'));
+            const finalImageUrl = hasValidImage ? banner.imageUrl : fallbackImg;
+
+            return (
+              <SwiperSlide key={banner.id}>
+                <div className="relative h-full flex items-center justify-center">
+                  <img 
+                    src={finalImageUrl} 
+                    alt={banner.title}
+                    className="absolute inset-0 w-full h-full object-cover" 
+                    onError={(e) => {
+                      e.target.src = fallbackImg;
+                    }}
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%)' }} />
                 <div className="relative z-10 text-left max-w-7xl mx-auto px-6 w-full">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -135,15 +147,16 @@ export default function HomePage() {
                 </div>
               </div>
             </SwiperSlide>
-          ))}
+            );
+          })}
         </Swiper>
       ) : (
         /* Default Hero if no banners */
         <div className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0"
                style={{ background: 'radial-gradient(ellipse at center, #1A1208 0%, #0A0A0A 70%)' }} />
-          <div className="absolute inset-0 opacity-20"
-               style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1541643600914-78b084683702?w=1400)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+          <div className="absolute inset-0 opacity-40"
+               style={{ backgroundImage: 'url(/banners/banner3.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
           <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.5)' }} />
           <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
