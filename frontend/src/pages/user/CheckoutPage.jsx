@@ -94,20 +94,20 @@ export default function CheckoutPage() {
                     }}>
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-medium text-sm" style={{ color: 'var(--color-cream)' }}>
-                          {addr.fullName} · {addr.phone}
+                        <p className="font-semibold text-sm tracking-wide mb-2" style={{ color: 'var(--color-cream)' }}>
+                          {addr.fullName} &nbsp;·&nbsp; <span className="font-normal text-xs opacity-85" style={{ color: 'var(--color-gold)' }}>{addr.phone}</span>
                         </p>
-                        <p className="text-xs mt-1" style={{ color: 'var(--color-muted)' }}>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--color-muted)', letterSpacing: '0.03em' }}>
                           {addr.addressLine1}{addr.addressLine2 ? `, ${addr.addressLine2}` : ''}, {addr.city}, {addr.state} - {addr.pincode}
                         </p>
                         {addr.isDefault && (
-                          <span className="text-xs mt-1 inline-block" style={{ color: 'var(--color-gold)' }}>★ Default</span>
+                          <span className="text-xs mt-2.5 inline-block font-medium" style={{ color: 'var(--color-gold)' }}>★ Default Address</span>
                         )}
                       </div>
                       {selectedAddress === addr.id && (
                         <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                              style={{ background: 'var(--color-gold)' }}>
-                          <FiCheck size={12} color="#0A0A0A" />
+                           <FiCheck size={12} color="#0A0A0A" />
                         </div>
                       )}
                     </div>
@@ -117,47 +117,47 @@ export default function CheckoutPage() {
 
               {!addingAddress ? (
                 <button onClick={() => setAddingAddress(true)}
-                  className="flex items-center gap-2 text-sm btn-outline-gold px-4 py-2.5 rounded-xl">
+                  className="flex items-center gap-2 text-sm btn-outline-gold px-5 py-3 rounded-xl mt-2">
                   <FiPlus size={16} /> Add New Address
                 </button>
               ) : (
-                <form onSubmit={handleAddAddress} className="space-y-3 p-4 rounded-xl"
+                <form onSubmit={handleAddAddress} className="space-y-4 p-5 rounded-xl mt-3"
                       style={{ background: 'var(--color-surface-2)', border: '1px solid var(--color-border)' }}>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <input placeholder="Full Name" value={newAddress.fullName} required
                       onChange={e => setNewAddress(p => ({ ...p, fullName: e.target.value }))}
-                      className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+                      className="px-4 py-3 rounded-lg text-sm input-dark" />
                     <input placeholder="Phone" value={newAddress.phone} required
                       onChange={e => setNewAddress(p => ({ ...p, phone: e.target.value }))}
-                      className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+                      className="px-4 py-3 rounded-lg text-sm input-dark" />
                   </div>
                   <input placeholder="Address Line 1" value={newAddress.addressLine1} required
                     onChange={e => setNewAddress(p => ({ ...p, addressLine1: e.target.value }))}
-                    className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+                    className="w-full px-4 py-3 rounded-lg text-sm input-dark" />
                   <input placeholder="Address Line 2 (optional)" value={newAddress.addressLine2}
                     onChange={e => setNewAddress(p => ({ ...p, addressLine2: e.target.value }))}
-                    className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
-                  <div className="grid grid-cols-3 gap-3">
+                    className="w-full px-4 py-3 rounded-lg text-sm input-dark" />
+                  <div className="grid grid-cols-3 gap-4">
                     <input placeholder="City" value={newAddress.city} required
                       onChange={e => setNewAddress(p => ({ ...p, city: e.target.value }))}
-                      className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+                      className="px-4 py-3 rounded-lg text-sm input-dark" />
                     <input placeholder="State" value={newAddress.state} required
                       onChange={e => setNewAddress(p => ({ ...p, state: e.target.value }))}
-                      className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+                      className="px-4 py-3 rounded-lg text-sm input-dark" />
                     <input placeholder="Pincode" value={newAddress.pincode} required
                       onChange={e => setNewAddress(p => ({ ...p, pincode: e.target.value }))}
-                      className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+                      className="px-4 py-3 rounded-lg text-sm input-dark" />
                   </div>
-                  <label className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: 'var(--color-muted)' }}>
+                  <label className="flex items-center gap-2 text-sm cursor-pointer mt-1" style={{ color: 'var(--color-muted)' }}>
                     <input type="checkbox" checked={newAddress.isDefault}
                       onChange={e => setNewAddress(p => ({ ...p, isDefault: e.target.checked }))}
                       style={{ accentColor: 'var(--color-gold)' }} />
                     Set as default address
                   </label>
-                  <div className="flex gap-3">
-                    <button type="submit" className="px-5 py-2 rounded-lg text-sm btn-gold">Save Address</button>
+                  <div className="flex gap-3 pt-2">
+                    <button type="submit" className="px-6 py-2.5 rounded-lg text-sm btn-gold">Save Address</button>
                     <button type="button" onClick={() => setAddingAddress(false)}
-                      className="px-5 py-2 rounded-lg text-sm btn-outline-gold">Cancel</button>
+                      className="px-6 py-2.5 rounded-lg text-sm btn-outline-gold">Cancel</button>
                   </div>
                 </form>
               )}

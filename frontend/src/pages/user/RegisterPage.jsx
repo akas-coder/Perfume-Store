@@ -71,7 +71,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="p-8 rounded-3xl glass" style={{ border: '1px solid rgba(212,175,55,0.2)' }}>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {fields.map(f => (
               <div key={f.name}>
                 <label className="block text-xs font-medium uppercase tracking-wider mb-2"

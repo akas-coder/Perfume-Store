@@ -36,6 +36,8 @@ body {
   background-color: var(--color-black);
   color: var(--color-cream);
   overflow-x: hidden;
+  line-height: 1.6;
+  letter-spacing: 0.025em;
 }
 
 /* Scrollbar */
@@ -119,6 +121,8 @@ body {
   border: 1px solid var(--color-border);
   color: var(--color-cream);
   transition: border-color 0.3s;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
 }
 .input-dark:focus {
   outline: none;

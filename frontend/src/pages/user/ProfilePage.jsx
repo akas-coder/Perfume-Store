@@ -79,43 +79,43 @@ export default function ProfilePage() {
   };
 
   const AddressForm = ({ onSubmit, onCancel, addr, setAddr, title }) => (
-    <form onSubmit={onSubmit} className="space-y-3 p-4 rounded-xl mt-3"
+    <form onSubmit={onSubmit} className="space-y-4 p-5 rounded-xl mt-3"
           style={{ background: 'var(--color-surface-2)', border: '1px solid var(--color-border)' }}>
-      <h4 className="text-sm font-semibold" style={{ color: 'var(--color-cream)' }}>{title}</h4>
-      <div className="grid grid-cols-2 gap-3">
+      <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--color-cream)' }}>{title}</h4>
+      <div className="grid grid-cols-2 gap-4">
         <input placeholder="Full Name" value={addr.fullName} required
           onChange={e => setAddr(p => ({ ...p, fullName: e.target.value }))}
-          className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+          className="px-4 py-3 rounded-lg text-sm input-dark" />
         <input placeholder="Phone" value={addr.phone} required
           onChange={e => setAddr(p => ({ ...p, phone: e.target.value }))}
-          className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+          className="px-4 py-3 rounded-lg text-sm input-dark" />
       </div>
       <input placeholder="Address Line 1" value={addr.addressLine1} required
         onChange={e => setAddr(p => ({ ...p, addressLine1: e.target.value }))}
-        className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+        className="w-full px-4 py-3 rounded-lg text-sm input-dark" />
       <input placeholder="Address Line 2 (optional)" value={addr.addressLine2}
         onChange={e => setAddr(p => ({ ...p, addressLine2: e.target.value }))}
-        className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
-      <div className="grid grid-cols-3 gap-3">
+        className="w-full px-4 py-3 rounded-lg text-sm input-dark" />
+      <div className="grid grid-cols-3 gap-4">
         <input placeholder="City" value={addr.city} required
           onChange={e => setAddr(p => ({ ...p, city: e.target.value }))}
-          className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+          className="px-4 py-3 rounded-lg text-sm input-dark" />
         <input placeholder="State" value={addr.state} required
           onChange={e => setAddr(p => ({ ...p, state: e.target.value }))}
-          className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+          className="px-4 py-3 rounded-lg text-sm input-dark" />
         <input placeholder="Pincode" value={addr.pincode} required
           onChange={e => setAddr(p => ({ ...p, pincode: e.target.value }))}
-          className="px-3 py-2.5 rounded-lg text-sm input-dark" />
+          className="px-4 py-3 rounded-lg text-sm input-dark" />
       </div>
-      <label className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: 'var(--color-muted)' }}>
+      <label className="flex items-center gap-2 text-sm cursor-pointer mt-1" style={{ color: 'var(--color-muted)' }}>
         <input type="checkbox" checked={addr.isDefault}
           onChange={e => setAddr(p => ({ ...p, isDefault: e.target.checked }))}
           style={{ accentColor: 'var(--color-gold)' }} />
         Set as default address
       </label>
-      <div className="flex gap-3">
-        <button type="submit" className="px-5 py-2 rounded-lg text-sm btn-gold">Save</button>
-        <button type="button" onClick={onCancel} className="px-5 py-2 rounded-lg text-sm btn-outline-gold">Cancel</button>
+      <div className="flex gap-3 pt-2">
+        <button type="submit" className="px-6 py-2.5 rounded-lg text-sm btn-gold">Save</button>
+        <button type="button" onClick={onCancel} className="px-6 py-2.5 rounded-lg text-sm btn-outline-gold">Cancel</button>
       </div>
     </form>
   );
@@ -215,13 +215,13 @@ export default function ProfilePage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
             {addresses.map(addr => (
               <div key={addr.id} className="p-5 rounded-2xl gold-border" style={{ background: 'var(--color-surface)' }}>
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between py-1">
                   <div>
-                    <p className="font-medium text-sm" style={{ color: 'var(--color-cream)' }}>
-                      {addr.fullName} · {addr.phone}
-                      {addr.isDefault && <span className="ml-2 text-xs" style={{ color: 'var(--color-gold)' }}>★ Default</span>}
+                    <p className="font-semibold text-sm tracking-wide mb-2" style={{ color: 'var(--color-cream)' }}>
+                      {addr.fullName} &nbsp;·&nbsp; <span className="font-normal text-xs opacity-85" style={{ color: 'var(--color-gold)' }}>{addr.phone}</span>
+                      {addr.isDefault && <span className="ml-3 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-gold/10" style={{ color: 'var(--color-gold)' }}>★ Default</span>}
                     </p>
-                    <p className="text-sm mt-1" style={{ color: 'var(--color-muted)' }}>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted)', letterSpacing: '0.03em' }}>
                       {addr.addressLine1}{addr.addressLine2 ? `, ${addr.addressLine2}` : ''}, {addr.city}, {addr.state} - {addr.pincode}
                     </p>
                   </div>

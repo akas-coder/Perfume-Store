@@ -136,7 +136,7 @@ export default function ResetPasswordPage() {
             </motion.div>
           ) : (
             /* ── Reset form ── */
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* New Password */}
               <div>
                 <label

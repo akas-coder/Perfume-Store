@@ -71,16 +71,16 @@ export default function AdminBanners() {
               <h2 className="font-display text-xl font-semibold" style={{ color: 'var(--color-cream)' }}>New Banner</h2>
               <button onClick={() => setShowModal(false)} style={{ color: 'var(--color-muted)' }}><FiX size={20} /></button>
             </div>
-            <form onSubmit={handleSave} className="p-6 space-y-5 overflow-y-auto flex-1 min-h-0">
+            <form onSubmit={handleSave} className="p-6 space-y-6 overflow-y-auto flex-1 min-h-0">
               <div><label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Title</label>
-                <input required value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" /></div>
+                <input required value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" /></div>
               <div><label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Subtitle</label>
-                <input value={form.subtitle} onChange={e => setForm(p => ({ ...p, subtitle: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" /></div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input value={form.subtitle} onChange={e => setForm(p => ({ ...p, subtitle: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" /></div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div><label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Button Text</label>
-                  <input value={form.buttonText} onChange={e => setForm(p => ({ ...p, buttonText: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" /></div>
+                  <input value={form.buttonText} onChange={e => setForm(p => ({ ...p, buttonText: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" /></div>
                 <div><label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Link URL</label>
-                  <input value={form.linkUrl} onChange={e => setForm(p => ({ ...p, linkUrl: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" /></div>
+                  <input value={form.linkUrl} onChange={e => setForm(p => ({ ...p, linkUrl: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" /></div>
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Banner Image</label>

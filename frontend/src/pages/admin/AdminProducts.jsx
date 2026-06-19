@@ -116,7 +116,7 @@ export default function AdminProducts() {
     p.brand?.toLowerCase().includes(search.toLowerCase())
   );
 
-  const inputCls = "w-full px-3 py-2.5 rounded-lg text-sm input-dark";
+  const inputCls = "w-full px-4 py-3 rounded-xl text-sm input-dark";
 
   return (
     <div className="space-y-5">
@@ -125,7 +125,7 @@ export default function AdminProducts() {
         <div className="relative flex-1 max-w-sm">
           <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2" size={16} style={{ color: 'var(--color-muted)' }} />
           <input placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm input-dark" />
+            className="w-full pl-9 pr-4 py-3 rounded-xl text-sm input-dark" />
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm btn-gold">
           <FiPlus size={16} /> Add Product

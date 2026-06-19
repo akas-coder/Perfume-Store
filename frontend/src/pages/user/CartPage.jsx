@@ -156,7 +156,7 @@ export default function CartPage() {
                 <div className="flex gap-2">
                   <input
                     value={couponCode} onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                    placeholder="COUPON CODE" className="flex-1 px-4 py-2.5 rounded-xl text-sm input-dark"
+                    placeholder="COUPON CODE" className="flex-1 px-4 py-3 rounded-xl text-sm input-dark"
                     id="coupon-input"
                   />
                   <button onClick={handleApplyCoupon} disabled={applyingCoupon}

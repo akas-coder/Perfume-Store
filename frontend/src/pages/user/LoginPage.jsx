@@ -56,7 +56,7 @@ export default function LoginPage() {
         </div>
 
         <div className="p-8 rounded-3xl glass" style={{ border: '1px solid rgba(212,175,55,0.2)' }}>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-xs font-medium uppercase tracking-wider mb-2"
                      style={{ color: 'var(--color-muted)' }}>Email Address</label>

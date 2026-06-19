@@ -78,47 +78,47 @@ export default function AdminCoupons() {
               <h2 className="font-display text-xl font-semibold" style={{ color: 'var(--color-cream)' }}>New Coupon</h2>
               <button onClick={() => setShowModal(false)} style={{ color: 'var(--color-muted)' }}><FiX size={20} /></button>
             </div>
-            <form onSubmit={handleSave} className="p-6 space-y-5 overflow-y-auto flex-1 min-h-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSave} className="p-6 space-y-6 overflow-y-auto flex-1 min-h-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Code</label>
-                  <input required value={form.code} onChange={e => setForm(p => ({ ...p, code: e.target.value.toUpperCase() }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark font-mono" placeholder="SUMMER20" />
+                  <input required value={form.code} onChange={e => setForm(p => ({ ...p, code: e.target.value.toUpperCase() }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark font-mono" placeholder="SUMMER20" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Type</label>
-                  <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark cursor-pointer">
+                  <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark cursor-pointer">
                     {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Discount Value</label>
-                  <input required type="number" value={form.discountValue} onChange={e => setForm(p => ({ ...p, discountValue: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" placeholder={form.type.includes('PERCENTAGE') || form.type === 'FESTIVAL' ? '10 (%)' : '500 (₹)'} />
+                  <input required type="number" value={form.discountValue} onChange={e => setForm(p => ({ ...p, discountValue: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" placeholder={form.type.includes('PERCENTAGE') || form.type === 'FESTIVAL' ? '10 (%)' : '500 (₹)'} />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Min Order (₹)</label>
-                  <input type="number" value={form.minOrderAmount} onChange={e => setForm(p => ({ ...p, minOrderAmount: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+                  <input type="number" value={form.minOrderAmount} onChange={e => setForm(p => ({ ...p, minOrderAmount: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" />
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Max Discount (₹)</label>
-                  <input type="number" value={form.maxDiscountAmount} onChange={e => setForm(p => ({ ...p, maxDiscountAmount: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+                  <input type="number" value={form.maxDiscountAmount} onChange={e => setForm(p => ({ ...p, maxDiscountAmount: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Usage Limit</label>
-                  <input type="number" value={form.usageLimit} onChange={e => setForm(p => ({ ...p, usageLimit: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" placeholder="Unlimited" />
+                  <input type="number" value={form.usageLimit} onChange={e => setForm(p => ({ ...p, usageLimit: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" placeholder="Unlimited" />
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Valid From</label>
-                  <input type="date" value={form.validFrom} onChange={e => setForm(p => ({ ...p, validFrom: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+                  <input type="date" value={form.validFrom} onChange={e => setForm(p => ({ ...p, validFrom: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Valid Until</label>
-                  <input type="date" value={form.validUntil} onChange={e => setForm(p => ({ ...p, validUntil: e.target.value }))} className="w-full px-3 py-2.5 rounded-lg text-sm input-dark" />
+                  <input type="date" value={form.validUntil} onChange={e => setForm(p => ({ ...p, validUntil: e.target.value }))} className="w-full px-4 py-3 rounded-xl text-sm input-dark" />
                 </div>
               </div>
               <div className="flex gap-4 pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>

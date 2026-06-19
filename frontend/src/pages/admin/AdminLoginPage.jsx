@@ -36,13 +36,18 @@ export default function AdminLoginPage() {
         <div className="text-center mb-10">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
                style={{ background: 'linear-gradient(135deg, #E8C96A, #D4AF37)' }}>
-            <span className="text-2xl font-bold text-black">P</span>
+            <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="22" y="28" width="20" height="24" rx="4" fill="#0A0A0A" opacity="0.8"/>
+              <rect x="27" y="20" width="10" height="10" rx="2" fill="#0A0A0A" opacity="0.8"/>
+              <rect x="25" y="14" width="14" height="8" rx="3" fill="#0A0A0A" opacity="0.9"/>
+              <rect x="38" y="17" width="5" height="3" rx="1.5" fill="#0A0A0A" opacity="0.7"/>
+            </svg>
           </div>
           <h1 className="font-display text-3xl font-semibold" style={{ color: 'var(--color-cream)' }}>Admin Panel</h1>
           <p className="text-sm mt-2" style={{ color: 'var(--color-muted)' }}>Sign in to manage your store</p>
         </div>
         <div className="p-8 rounded-3xl glass" style={{ border: '1px solid rgba(212,175,55,0.2)' }}>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--color-muted)' }}>Email</label>
               <div className="relative">

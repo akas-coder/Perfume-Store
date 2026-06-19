@@ -128,9 +128,9 @@ export default function ProductListingPage() {
         <h3 className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--color-cream)' }}>Price Range (₹)</h3>
         <div className="flex gap-3">
           <input type="number" placeholder="Min" value={minPrice} onChange={e => setMinPrice(e.target.value)}
-            className="flex-1 px-3 py-2 rounded-lg text-sm input-dark" />
+            className="flex-1 px-4 py-2.5 rounded-xl text-sm input-dark" />
           <input type="number" placeholder="Max" value={maxPrice} onChange={e => setMaxPrice(e.target.value)}
-            className="flex-1 px-3 py-2 rounded-lg text-sm input-dark" />
+            className="flex-1 px-4 py-2.5 rounded-xl text-sm input-dark" />
         </div>
       </div>
 
@@ -181,7 +181,7 @@ export default function ProductListingPage() {
             </button>
             {/* Sort */}
             <select value={sort} onChange={e => setSort(e.target.value)}
-              className="px-4 py-2 rounded-lg text-sm input-dark cursor-pointer">
+              className="px-5 py-2.5 rounded-xl text-sm input-dark cursor-pointer">
               {SORT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
             </select>
           </div>
