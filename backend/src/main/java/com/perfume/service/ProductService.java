@@ -24,6 +24,7 @@ public class ProductService {
     @Autowired private CartItemRepository cartItemRepository;
     @Autowired private WishlistRepository wishlistRepository;
     @Autowired private ReviewRepository reviewRepository;
+    @Autowired private OrderItemRepository orderItemRepository;
     @Autowired private CloudinaryService cloudinaryService;
 
 
@@ -193,9 +194,23 @@ public class ProductService {
         if (request.getLowStockThreshold() != null) inventory.setLowStockThreshold(request.getLowStockThreshold());
         inventoryRepository.save(inventory);
 
-        // Upload new images if provided
-        if (newImages != null && !newImages.isEmpty()) {
-            int existingCount = productImageRepository.findByProductIdOrderBySortOrderAsc(id).size();
+        // Upload new images if provided (and replace existing images)
+        if (newImages != null && !newImages.isEmpty() && newImages.stream().anyMatch(file -> !file.isEmpty())) {
+            // Delete existing images from Cloudinary and DB
+            if (product.getImages() != null && !product.getImages().isEmpty()) {
+                product.getImages().forEach(img -> {
+                    try {
+                        cloudinaryService.deleteImage(img.getPublicId());
+                    } catch (Exception e) {
+                        // Log but continue
+                    }
+                });
+                productImageRepository.deleteAll(product.getImages());
+                product.getImages().clear();
+            }
+
+            // Upload and save new images
+            int savedCount = 0;
             for (int i = 0; i < newImages.size(); i++) {
                 MultipartFile imgFile = newImages.get(i);
                 if (!imgFile.isEmpty()) {
@@ -204,10 +219,11 @@ public class ProductService {
                             .product(product)
                             .imageUrl(uploadResult.get("url"))
                             .publicId(uploadResult.get("publicId"))
-                            .isPrimary(existingCount == 0 && i == 0)
-                            .sortOrder(existingCount + i)
+                            .isPrimary(savedCount == 0)
+                            .sortOrder(savedCount)
                             .build();
                     productImageRepository.save(productImage);
+                    savedCount++;
                 }
             }
         }
@@ -219,6 +235,9 @@ public class ProductService {
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // 0. Nullify references in order_items
+        orderItemRepository.nullifyProductReferences(id);
 
         // 1. Remove from all carts
         cartItemRepository.deleteByProductId(id);
