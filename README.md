@@ -1,6 +1,8 @@
-# 🌸 PERfume — Luxury Perfume E-Commerce Store
+# 🌸 Liorix — Luxury Perfume E-Commerce Store
 
 A full-stack luxury perfume e-commerce web application built with **Spring Boot** (backend) and **React + Vite** (frontend). Features a rich, premium dark-gold UI, complete shopping flow, admin dashboard, and secure JWT-based authentication.
+
+🚀 **Live Website Demo**: [https://perfume-frontend-qj60.onrender.com](https://perfume-frontend-qj60.onrender.com)
 
 ---
 
