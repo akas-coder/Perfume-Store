@@ -24,6 +24,7 @@ import ForgotPasswordPage from './pages/user/ForgotPasswordPage';
 import ResetPasswordPage from './pages/user/ResetPasswordPage';
 import QuizPage from './pages/user/QuizPage';
 import SearchPage from './pages/user/SearchPage';
+import ReturnPolicyPage from './pages/user/ReturnPolicyPage';
 
 // Admin Pages
 import AdminLoginPage from './pages/admin/AdminLoginPage';
@@ -68,6 +69,7 @@ function AppRoutes() {
         <Route path="orders" element={<ProtectedRoute><OrderHistoryPage /></ProtectedRoute>} />
         <Route path="orders/:id" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
         <Route path="profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <Route path="return-policy" element={<ReturnPolicyPage />} />
       </Route>
 
       {/* Admin Routes */}

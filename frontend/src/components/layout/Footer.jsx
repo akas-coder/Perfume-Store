@@ -14,7 +14,7 @@ export default function Footer() {
     ],
     help: [
       { label: 'Track Order', to: '/orders' },
-      { label: 'Return Policy', to: '#' },
+      { label: 'Return Policy', to: '/return-policy' },
       { label: 'Shipping Info', to: '#' },
       { label: 'FAQ', to: '#' },
       { label: 'Contact Us', to: '#' },
