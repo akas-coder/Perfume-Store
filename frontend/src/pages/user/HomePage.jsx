@@ -100,7 +100,7 @@ export default function HomePage() {
           className="h-[60vh] md:h-[80vh]"
         >
           {banners.map((banner, index) => {
-            const fallbackBanners = ['/banners/banner4.jpg', '/banners/banner3.png', '/banners/banner2.png', '/banners/banner1.jpg'];
+            const fallbackBanners = ['/banners/banner1.jpg', '/banners/banner2.png', '/banners/banner3.png'];
             const fallbackImg = fallbackBanners[index % fallbackBanners.length];
             const hasValidImage = banner.imageUrl && (banner.imageUrl.startsWith('http') || banner.imageUrl.startsWith('/'));
             const finalImageUrl = hasValidImage ? banner.imageUrl : fallbackImg;

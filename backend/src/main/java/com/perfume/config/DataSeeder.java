@@ -94,13 +94,13 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedBanners() {
-        if (bannerRepository.count() < 4) {
+        if (bannerRepository.count() != 3) {
             bannerRepository.deleteAll(); // Clean any incomplete/dummy banners
 
             Banner b1 = Banner.builder()
                     .title("One Brand. Four Individuals. Endless Impressions.")
                     .subtitle("Crafted to match your vibe. Made to leave your mark.")
-                    .imageUrl("/banners/banner4.jpg")
+                    .imageUrl("/banners/banner1.jpg")
                     .buttonText("Explore Collection")
                     .linkUrl("/products")
                     .sortOrder(1)
@@ -111,7 +111,7 @@ public class DataSeeder implements CommandLineRunner {
             Banner b2 = Banner.builder()
                     .title("Define. Impress. Be Liorix.")
                     .subtitle("Premium fragrances crafted to reflect your power, passion, and presence.")
-                    .imageUrl("/banners/banner3.png")
+                    .imageUrl("/banners/banner2.png")
                     .buttonText("Shop Now")
                     .linkUrl("/products")
                     .sortOrder(2)
@@ -122,7 +122,7 @@ public class DataSeeder implements CommandLineRunner {
             Banner b3 = Banner.builder()
                     .title("Crafted to be Remembered")
                     .subtitle("Experience the essence of elegance and luxury.")
-                    .imageUrl("/banners/banner2.png")
+                    .imageUrl("/banners/banner3.png")
                     .buttonText("Discover Scents")
                     .linkUrl("/products")
                     .sortOrder(3)
@@ -130,18 +130,7 @@ public class DataSeeder implements CommandLineRunner {
                     .build();
             bannerRepository.save(b3);
 
-            Banner b4 = Banner.builder()
-                    .title("Exclusive Liorix Combo")
-                    .subtitle("The ultimate collection of our signature scents.")
-                    .imageUrl("/banners/banner1.jpg")
-                    .buttonText("View Combos")
-                    .linkUrl("/products")
-                    .sortOrder(4)
-                    .isActive(true)
-                    .build();
-            bannerRepository.save(b4);
-
-            System.out.println("✅ 4 Liorix Banners seeded");
+            System.out.println("✅ 3 Liorix Banners seeded");
         }
     }
 
