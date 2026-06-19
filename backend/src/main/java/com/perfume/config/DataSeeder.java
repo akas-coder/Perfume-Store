@@ -94,14 +94,14 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedBanners() {
-        if (bannerRepository.count() != 3) {
+        if (bannerRepository.count() != 4) {
             bannerRepository.deleteAll(); // Clean any incomplete/dummy banners
 
             Banner b1 = Banner.builder()
-                    .title("One Brand. Four Individuals. Endless Impressions.")
-                    .subtitle("Crafted to match your vibe. Made to leave your mark.")
-                    .imageUrl("/banners/banner1.jpg")
-                    .buttonText("Explore Collection")
+                    .title("Define. Impress. Be Liorix.")
+                    .subtitle("Premium fragrances crafted to reflect your power, passion, and presence.")
+                    .imageUrl("/banners/banner2.png")
+                    .buttonText("Shop Now")
                     .linkUrl("/products")
                     .sortOrder(1)
                     .isActive(true)
@@ -109,10 +109,10 @@ public class DataSeeder implements CommandLineRunner {
             bannerRepository.save(b1);
 
             Banner b2 = Banner.builder()
-                    .title("Define. Impress. Be Liorix.")
-                    .subtitle("Premium fragrances crafted to reflect your power, passion, and presence.")
-                    .imageUrl("/banners/banner2.png")
-                    .buttonText("Shop Now")
+                    .title("Crafted to be Remembered")
+                    .subtitle("Experience the essence of elegance and luxury.")
+                    .imageUrl("/banners/banner3.png")
+                    .buttonText("Discover Scents")
                     .linkUrl("/products")
                     .sortOrder(2)
                     .isActive(true)
@@ -120,17 +120,28 @@ public class DataSeeder implements CommandLineRunner {
             bannerRepository.save(b2);
 
             Banner b3 = Banner.builder()
-                    .title("Crafted to be Remembered")
-                    .subtitle("Experience the essence of elegance and luxury.")
-                    .imageUrl("/banners/banner3.png")
-                    .buttonText("Discover Scents")
+                    .title("For The Chosen")
+                    .subtitle("Curated Perfume Oils. Handpicked for those who appreciate the finer details.")
+                    .imageUrl("/banners/banner4.png")
+                    .buttonText("Explore Oils")
                     .linkUrl("/products")
                     .sortOrder(3)
                     .isActive(true)
                     .build();
             bannerRepository.save(b3);
 
-            System.out.println("✅ 3 Liorix Banners seeded");
+            Banner b4 = Banner.builder()
+                    .title("Velor Intense")
+                    .subtitle("Rich. Woody. Irresistible. A scent that defines power.")
+                    .imageUrl("/banners/banner5.png")
+                    .buttonText("Shop Now")
+                    .linkUrl("/products")
+                    .sortOrder(4)
+                    .isActive(true)
+                    .build();
+            bannerRepository.save(b4);
+
+            System.out.println("✅ 4 Liorix Banners seeded");
         }
     }
 
