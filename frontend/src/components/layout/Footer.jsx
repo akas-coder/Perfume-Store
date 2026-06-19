@@ -70,8 +70,12 @@ export default function Footer() {
               Every scent tells a story — find yours.
             </p>
             <div className="flex gap-4">
-              {[FiInstagram, FiTwitter, FiFacebook].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-full flex items-center justify-center gold-border transition-all hover:scale-110"
+              {[
+                { Icon: FiInstagram, href: "https://www.instagram.com/liorixofficial/" },
+                { Icon: FiTwitter, href: "#" },
+                { Icon: FiFacebook, href: "#" }
+              ].map(({ Icon, href }, i) => (
+                <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center gold-border transition-all hover:scale-110"
                    style={{ color: 'var(--color-gold)' }}>
                   <Icon size={16} />
                 </a>
@@ -116,16 +120,16 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <FiMapPin size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--color-gold)' }} />
                 <span className="text-sm" style={{ color: 'var(--color-muted)' }}>
-                  123 Fragrance Lane, Mumbai, Maharashtra 400001
+                  Kadivihar D-block KadiPur Delhi 110036
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <FiPhone size={16} style={{ color: 'var(--color-gold)' }} />
-                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>+91 98765 43210</span>
+                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>+91 9319232037</span>
               </li>
               <li className="flex items-center gap-3">
                 <FiMail size={16} style={{ color: 'var(--color-gold)' }} />
-                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>hello@liorix.com</span>
+                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>liorixparfums@gmail.com</span>
               </li>
             </ul>
           </div>
