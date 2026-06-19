@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiHeart, FiShoppingBag, FiStar, FiTruck, FiShield, FiMinus, FiPlus, FiGift, FiChevronRight } from 'react-icons/fi';
 import { productAPI, reviewAPI, wishlistAPI } from '../../services/api';
@@ -47,6 +47,7 @@ export default function ProductDetailPage() {
   const { isInWishlist, addToWishlistSet, removeFromWishlistSet } = useWishlist();
   const inWishlist = isInWishlist(parseInt(id));
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,8 +61,17 @@ export default function ProductDetailPage() {
       setRelated(r.data.data || []);
       setReviews(rev.data.data?.content || []);
     }).catch(() => navigate('/products'))
-    .finally(() => setLoading(false));
-  }, [id]);
+    .finally(() => {
+      setLoading(false);
+      const tab = searchParams.get('tab');
+      if (tab === 'reviews') {
+        setActiveTab('reviews');
+        if (searchParams.get('write') === 'true') {
+          setShowReviewForm(true);
+        }
+      }
+    });
+  }, [id, searchParams]);
 
   const handleAddToCart = async () => {
     if (!isLoggedIn) { toast.error('Please login to add to cart'); navigate('/login'); return; }
@@ -340,7 +350,7 @@ export default function ProductDetailPage() {
           {activeTab === 'reviews' && (
             <div className="space-y-6">
               {/* Write Review */}
-              {isLoggedIn && (
+              {isLoggedIn ? (
                 <div className="p-6 rounded-2xl" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
                   {!showReviewForm ? (
                     <button onClick={() => setShowReviewForm(true)} className="text-sm btn-outline-gold px-6 py-3 rounded-xl">
@@ -374,6 +384,12 @@ export default function ProductDetailPage() {
                       </div>
                     </form>
                   )}
+                </div>
+              ) : (
+                <div className="p-6 rounded-2xl text-center" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+                  <p style={{ color: 'var(--color-muted)' }} className="text-sm">
+                    Have you purchased this product? <Link to="/login" className="font-semibold transition-opacity hover:opacity-85" style={{ color: 'var(--color-gold)' }}>Log in</Link> to share your rating and review.
+                  </p>
                 </div>
               )}
 

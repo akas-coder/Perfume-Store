@@ -114,23 +114,47 @@ export default function OrderDetailPage() {
               <h2 className="font-semibold mb-4" style={{ color: 'var(--color-cream)' }}>Items Ordered</h2>
               <div className="space-y-4">
                 {order.items?.map(item => (
-                  <div key={item.id} className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0"
-                         style={{ background: 'var(--color-surface-2)' }}>
-                      {item.productImage
-                        ? <img src={item.productImage} alt="" className="w-full h-full object-cover" />
-                        : <div className="w-full h-full flex items-center justify-center text-xl">🌹</div>}
-                    </div>
+                  <div key={item.id} className="flex items-center gap-4 py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                    {item.productId ? (
+                      <Link to={`/products/${item.productId}`} className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 hover:opacity-85 transition-opacity"
+                           style={{ background: 'var(--color-surface-2)' }}>
+                        {item.productImage
+                          ? <img src={item.productImage} alt="" className="w-full h-full object-cover" />
+                          : <div className="w-full h-full flex items-center justify-center text-xl">🌹</div>}
+                      </Link>
+                    ) : (
+                      <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0"
+                           style={{ background: 'var(--color-surface-2)' }}>
+                        {item.productImage
+                          ? <img src={item.productImage} alt="" className="w-full h-full object-cover" />
+                          : <div className="w-full h-full flex items-center justify-center text-xl">🌹</div>}
+                      </div>
+                    )}
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-bold uppercase" style={{ color: 'var(--color-gold)' }}>{item.productBrand}</p>
-                      <p className="text-sm font-medium line-clamp-1" style={{ color: 'var(--color-cream)' }}>{item.productName}</p>
-                      <p className="text-xs" style={{ color: 'var(--color-muted)' }}>
+                      {item.productId ? (
+                        <Link to={`/products/${item.productId}`} className="text-sm font-medium line-clamp-1 hover:text-yellow-400 transition-colors" style={{ color: 'var(--color-cream)' }}>
+                          {item.productName}
+                        </Link>
+                      ) : (
+                        <p className="text-sm font-medium line-clamp-1" style={{ color: 'var(--color-cream)' }}>{item.productName}</p>
+                      )}
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--color-muted)' }}>
                         Qty: {item.quantity} · ₹{item.unitPrice?.toLocaleString('en-IN')} each
                       </p>
                     </div>
-                    <span className="font-bold text-sm" style={{ color: 'var(--color-gold)' }}>
-                      ₹{(item.unitPrice * item.quantity).toLocaleString('en-IN')}
-                    </span>
+                    <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                      <span className="font-bold text-sm" style={{ color: 'var(--color-gold)' }}>
+                        ₹{(item.unitPrice * item.quantity).toLocaleString('en-IN')}
+                      </span>
+                      {item.productId && order.status === 'DELIVERED' && (
+                        <Link to={`/products/${item.productId}?tab=reviews&write=true`}
+                              className="text-xs font-medium px-2.5 py-1 rounded-lg mt-1 border transition-all hover:bg-gold hover:text-black"
+                              style={{ borderColor: 'var(--color-gold)', color: 'var(--color-gold)' }}>
+                          Rate & Review
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
