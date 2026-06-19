@@ -58,7 +58,7 @@ export default function Footer() {
                    style={{ background: 'linear-gradient(135deg, #E8C96A, #D4AF37)' }}>
                 <span className="text-black font-bold text-xs">P</span>
               </div>
-              <span className="font-display text-2xl font-semibold text-gold-gradient tracking-widest">PERfume</span>
+              <span className="font-display text-2xl font-semibold text-gold-gradient tracking-widest">Liorix</span>
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--color-muted)' }}>
               Curating the world's finest fragrances for discerning connoisseurs. 
@@ -120,7 +120,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <FiMail size={16} style={{ color: 'var(--color-gold)' }} />
-                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>hello@perfume.com</span>
+                <span className="text-sm" style={{ color: 'var(--color-muted)' }}>hello@liorix.com</span>
               </li>
             </ul>
           </div>
@@ -130,7 +130,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
              style={{ borderTop: '1px solid var(--color-border)' }}>
           <p className="text-xs" style={{ color: 'var(--color-muted)' }}>
-            © {year} PERfume. All rights reserved.
+            © {year} Liorix. All rights reserved.
           </p>
           <div className="flex gap-6">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(item => (

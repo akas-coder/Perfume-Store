@@ -56,13 +56,18 @@ export default function AdminLayout() {
       {/* Logo */}
       <div className="px-6 py-6" style={{ borderBottom: '1px solid rgba(212,175,55,0.1)' }}>
         <Link to="/admin/dashboard" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                style={{ background: 'linear-gradient(135deg, #E8C96A, #D4AF37)' }}>
-            <span className="text-black font-bold text-sm">P</span>
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="22" y="28" width="20" height="24" rx="4" fill="#0A0A0A" opacity="0.8"/>
+              <rect x="27" y="20" width="10" height="10" rx="2" fill="#0A0A0A" opacity="0.8"/>
+              <rect x="25" y="14" width="14" height="8" rx="3" fill="#0A0A0A" opacity="0.9"/>
+              <rect x="38" y="17" width="5" height="3" rx="1.5" fill="#0A0A0A" opacity="0.7"/>
+            </svg>
           </div>
           {sidebarOpen && (
             <div>
-              <p className="font-display text-lg font-semibold text-gold-gradient">PERfume</p>
+              <p className="font-display text-lg font-semibold text-gold-gradient">Liorix</p>
               <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Admin Panel</p>
             </div>
           )}
