@@ -93,14 +93,14 @@ export default function HomePage() {
       {banners.length > 0 ? (
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           navigation
           loop
           className="h-[60vh] md:h-[80vh]"
         >
           {banners.map((banner, index) => {
-            const fallbackBanners = ['/banners/banner3.png', '/banners/banner2.png', '/banners/banner1.jpg'];
+            const fallbackBanners = ['/banners/banner4.jpg', '/banners/banner3.png', '/banners/banner2.png', '/banners/banner1.jpg'];
             const fallbackImg = fallbackBanners[index % fallbackBanners.length];
             const hasValidImage = banner.imageUrl && (banner.imageUrl.startsWith('http') || banner.imageUrl.startsWith('/'));
             const finalImageUrl = hasValidImage ? banner.imageUrl : fallbackImg;
