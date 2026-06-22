@@ -42,6 +42,27 @@ function SectionHeader({ tag, title, subtitle, linkTo, linkLabel }) {
   );
 }
 
+const getCategoryImageUrl = (catName, index) => {
+  const name = catName.toLowerCase();
+  if (name.includes('men')) {
+    return 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80';
+  } else if (name.includes('women') || name.includes('female')) {
+    return 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80';
+  } else if (name.includes('unisex')) {
+    return 'https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?w=600&auto=format&fit=crop&q=80';
+  } else if (name.includes('luxury')) {
+    return 'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?w=600&auto=format&fit=crop&q=80';
+  }
+  // Fallback by index
+  const fallbacks = [
+    'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?w=600&auto=format&fit=crop&q=80'
+  ];
+  return fallbacks[index % fallbacks.length];
+};
+
 export default function HomePage() {
   const [banners, setBanners] = useState([]);
   const [featured, setFeatured] = useState([]);
@@ -218,15 +239,22 @@ export default function HomePage() {
                   transition={{ delay: i * 0.1 }}>
                   <Link to={`/products?categoryId=${cat.id}`}
                         className="block relative rounded-2xl overflow-hidden aspect-square gold-border group card-hover">
-                    <div className="absolute inset-0 flex items-center justify-center text-5xl"
-                         style={{ background: 'var(--color-surface-2)' }}>
-                      {['🌸', '💫', '✨', '🎁'][i] || '🌺'}
+                    <div className="absolute inset-0 w-full h-full overflow-hidden">
+                      <img 
+                        src={getCategoryImageUrl(cat.name, i)} 
+                        alt={cat.name} 
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
+                      />
                     </div>
-                    <div className="absolute inset-0 flex items-end p-4"
-                         style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)' }}>
-                      <span className="font-display text-lg font-medium" style={{ color: 'var(--color-cream)' }}>
+                    <div className="absolute inset-0 transition-opacity duration-500"
+                         style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)' }} />
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 z-10">
+                      <span className="font-display text-lg md:text-xl font-semibold tracking-wide transition-colors duration-300 group-hover:text-yellow-400"
+                            style={{ color: 'var(--color-cream)' }}>
                         {cat.name}
                       </span>
+                      <div className="w-8 h-0.5 mt-2 transition-all duration-300 group-hover:w-16" 
+                           style={{ background: 'var(--color-gold)' }} />
                     </div>
                   </Link>
                 </motion.div>
