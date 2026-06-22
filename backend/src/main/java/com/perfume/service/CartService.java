@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
+//import java.util.List;
 
 @Service
 public class CartService {
@@ -22,12 +22,25 @@ public class CartService {
     private static final BigDecimal SHIPPING_CHARGE = new BigDecimal("99");
     private static final BigDecimal GIFT_PACKAGING_CHARGE = new BigDecimal("99");
 
+    private void initializeCartImages(Cart cart) {
+        if (cart != null && cart.getItems() != null) {
+            cart.getItems().forEach(item -> {
+                if (item.getProduct() != null && item.getProduct().getImages() != null) {
+                    item.getProduct().getImages().size();
+                }
+            });
+        }
+    }
+
+    @Transactional(readOnly = true)
     public Cart getCart(Long userId) {
-        return cartRepository.findByUserId(userId)
+        Cart cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> {
                     // Should not happen after registration, but just in case
                     throw new RuntimeException("Cart not found");
                 });
+        initializeCartImages(cart);
+        return cart;
     }
 
     @Transactional
@@ -62,7 +75,9 @@ public class CartService {
             cartItemRepository.save(newItem);
         }
 
-        return cartRepository.findByUserId(userId).orElse(cart);
+        Cart updatedCart = cartRepository.findByUserId(userId).orElse(cart);
+        initializeCartImages(updatedCart);
+        return updatedCart;
     }
 
     @Transactional
@@ -83,7 +98,9 @@ public class CartService {
             cartItemRepository.save(item);
         }
 
-        return cartRepository.findByUserId(userId).orElse(cart);
+        Cart updatedCart = cartRepository.findByUserId(userId).orElse(cart);
+        initializeCartImages(updatedCart);
+        return updatedCart;
     }
 
     @Transactional
@@ -93,7 +110,10 @@ public class CartService {
                 .filter(i -> i.getCart().getId().equals(cart.getId()))
                 .orElseThrow(() -> new RuntimeException("Cart item not found"));
         cartItemRepository.delete(item);
-        return cartRepository.findByUserId(userId).orElse(cart);
+        
+        Cart updatedCart = cartRepository.findByUserId(userId).orElse(cart);
+        initializeCartImages(updatedCart);
+        return updatedCart;
     }
 
     @Transactional
@@ -107,14 +127,18 @@ public class CartService {
         }
 
         cart.setCoupon(coupon);
-        return cartRepository.save(cart);
+        Cart savedCart = cartRepository.save(cart);
+        initializeCartImages(savedCart);
+        return savedCart;
     }
 
     @Transactional
     public Cart removeCoupon(Long userId) {
         Cart cart = getCart(userId);
         cart.setCoupon(null);
-        return cartRepository.save(cart);
+        Cart savedCart = cartRepository.save(cart);
+        initializeCartImages(savedCart);
+        return savedCart;
     }
 
     @Transactional

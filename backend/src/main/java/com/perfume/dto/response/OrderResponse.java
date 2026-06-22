@@ -1,7 +1,7 @@
 package com.perfume.dto.response;
 
 import com.perfume.model.Order;
-import com.perfume.model.OrderItem;
+//import com.perfume.model.OrderItem;
 import lombok.*;
 
 import java.math.BigDecimal;
