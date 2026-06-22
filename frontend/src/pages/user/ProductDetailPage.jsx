@@ -138,7 +138,7 @@ export default function ProductDetailPage() {
 
   if (!product) return null;
 
-  const images = product.images?.length > 0 ? product.images.map(img => img.imageUrl) : [null];
+  const images = product.images?.length > 0 ? product.images.map(img => img.imageUrl || img) : [null];
   const currentPrice = product.discountPrice || product.originalPrice;
   const discountPct = product.discountPrice
     ? Math.round(((product.originalPrice - product.discountPrice) / product.originalPrice) * 100)

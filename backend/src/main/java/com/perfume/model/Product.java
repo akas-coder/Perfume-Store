@@ -2,6 +2,7 @@ package com.perfume.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -108,6 +109,18 @@ public class Product {
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
+
+    @JsonProperty("primaryImage")
+    public String getPrimaryImage() {
+        if (images != null && !images.isEmpty()) {
+            return images.stream()
+                    .filter(img -> img.getIsPrimary() != null && img.getIsPrimary())
+                    .findFirst()
+                    .map(ProductImage::getImageUrl)
+                    .orElse(images.get(0).getImageUrl());
+        }
+        return null;
+    }
 
     public enum Gender {
         MEN, WOMEN, UNISEX
