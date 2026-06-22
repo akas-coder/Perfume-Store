@@ -115,7 +115,9 @@ public class SecurityConfig {
             "http://localhost:5174",
             "http://localhost:3000",
             "https://*.vercel.app",
-            "https://*.onrender.com"
+            "https://*.onrender.com",
+            "https://liorix.in",
+            "https://*.liorix.in"
         ));
         // Append runtime-configured origin (e.g., exact Render frontend URL)
         if (allowedOrigin != null && !allowedOrigin.isBlank()) {
