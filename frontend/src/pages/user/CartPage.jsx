@@ -166,7 +166,7 @@ export default function CartPage() {
                 </div>
               )}
               <div className="mt-3 space-y-1">
-                <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Try: WELCOME10, FLAT500, FIRST20</p>
+                <p className="text-xs" style={{ color: 'var(--color-muted)' }}>.</p>
               </div>
             </div>
 
