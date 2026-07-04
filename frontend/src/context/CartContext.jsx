@@ -9,6 +9,10 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState(null);
   const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  // Track items currently being removed to prevent double-click
+  const [removingItems, setRemovingItems] = useState(new Set());
+  // Track items currently being updated
+  const [updatingItems, setUpdatingItems] = useState(new Set());
 
   const fetchCart = useCallback(async () => {
     if (!isLoggedIn) { setCart(null); setCartCount(0); return; }
@@ -35,18 +39,71 @@ export function CartProvider({ children }) {
   };
 
   const updateItem = async (itemId, quantity) => {
-    const res = await cartAPI.updateItem(itemId, quantity);
-    if (res.data.success) {
-      setCart(res.data.data);
-      setCartCount(res.data.data?.items?.length || 0);
+    if (updatingItems.has(itemId)) return;
+
+    // Optimistic update
+    setUpdatingItems(prev => new Set(prev).add(itemId));
+    const prevCart = cart;
+
+    if (quantity <= 0) {
+      // If quantity goes to 0, use removeItem flow
+      setUpdatingItems(prev => { const s = new Set(prev); s.delete(itemId); return s; });
+      await removeItem(itemId);
+      return;
+    }
+
+    setCart(prev => {
+      if (!prev?.items) return prev;
+      return {
+        ...prev,
+        items: prev.items.map(item =>
+          item.id === itemId ? { ...item, quantity } : item
+        )
+      };
+    });
+
+    try {
+      const res = await cartAPI.updateItem(itemId, quantity);
+      if (res.data.success) {
+        setCart(res.data.data);
+        setCartCount(res.data.data?.items?.length || 0);
+      }
+    } catch (err) {
+      // Revert on error
+      setCart(prevCart);
+      throw err;
+    } finally {
+      setUpdatingItems(prev => { const s = new Set(prev); s.delete(itemId); return s; });
     }
   };
 
   const removeItem = async (itemId) => {
-    const res = await cartAPI.removeItem(itemId);
-    if (res.data.success) {
-      setCart(res.data.data);
-      setCartCount(res.data.data?.items?.length || 0);
+    if (removingItems.has(itemId)) return;
+
+    // Optimistic removal
+    setRemovingItems(prev => new Set(prev).add(itemId));
+    const prevCart = cart;
+
+    setCart(prev => {
+      if (!prev?.items) return prev;
+      const newItems = prev.items.filter(item => item.id !== itemId);
+      return { ...prev, items: newItems };
+    });
+    setCartCount(prev => Math.max(0, prev - 1));
+
+    try {
+      const res = await cartAPI.removeItem(itemId);
+      if (res.data.success) {
+        setCart(res.data.data);
+        setCartCount(res.data.data?.items?.length || 0);
+      }
+    } catch (err) {
+      // Revert on error
+      setCart(prevCart);
+      setCartCount(prevCart?.items?.length || 0);
+      throw err;
+    } finally {
+      setRemovingItems(prev => { const s = new Set(prev); s.delete(itemId); return s; });
     }
   };
 
@@ -75,7 +132,8 @@ export function CartProvider({ children }) {
     <CartContext.Provider value={{
       cart, cartCount, loading, fetchCart,
       addToCart, updateItem, removeItem,
-      applyCoupon, removeCoupon, getSubtotal
+      applyCoupon, removeCoupon, getSubtotal,
+      removingItems, updatingItems
     }}>
       {children}
     </CartContext.Provider>
