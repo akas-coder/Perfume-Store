@@ -9,7 +9,9 @@ import lombok.*;
         @UniqueConstraint(columnNames = {"cart_id", "product_id"})
 })
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@EqualsAndHashCode(of = "id")
 public class CartItem {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -82,38 +82,48 @@ public class CartService {
 
     @Transactional
     public Cart updateItem(Long userId, Long itemId, int quantity) {
-        Cart cart = getCart(userId);
-        CartItem item = cartItemRepository.findById(itemId)
-                .filter(i -> i.getCart().getId().equals(cart.getId()))
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        initializeCartImages(cart);
+
+        CartItem item = cart.getItems().stream()
+                .filter(i -> i.getId().equals(itemId))
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
         if (quantity <= 0) {
-            cartItemRepository.delete(item);
+            // Remove from the collection — orphanRemoval will delete the DB row
+            cart.getItems().remove(item);
         } else {
             Inventory inventory = inventoryRepository.findByProductId(item.getProduct().getId()).orElse(null);
             if (inventory != null && inventory.getQuantity() < quantity) {
                 throw new RuntimeException("Insufficient stock");
             }
             item.setQuantity(quantity);
-            cartItemRepository.save(item);
         }
 
-        Cart updatedCart = cartRepository.findByUserId(userId).orElse(cart);
-        initializeCartImages(updatedCart);
-        return updatedCart;
+        Cart savedCart = cartRepository.save(cart);
+        initializeCartImages(savedCart);
+        return savedCart;
     }
 
     @Transactional
     public Cart removeItem(Long userId, Long itemId) {
-        Cart cart = getCart(userId);
-        CartItem item = cartItemRepository.findById(itemId)
-                .filter(i -> i.getCart().getId().equals(cart.getId()))
+        // Reload cart fresh from DB (bypasses L1 cache stale data)
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        initializeCartImages(cart);
+
+        CartItem item = cart.getItems().stream()
+                .filter(i -> i.getId().equals(itemId))
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Cart item not found"));
-        cartItemRepository.delete(item);
-        
-        Cart updatedCart = cartRepository.findByUserId(userId).orElse(cart);
-        initializeCartImages(updatedCart);
-        return updatedCart;
+
+        // Remove from collection — orphanRemoval = true triggers the DELETE
+        cart.getItems().remove(item);
+        Cart savedCart = cartRepository.save(cart);
+        initializeCartImages(savedCart);
+        return savedCart;
     }
 
     @Transactional
